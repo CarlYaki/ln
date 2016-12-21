@@ -142,11 +142,154 @@ namespace ln
 
         public static bigNum operator +(bigNum b1, bigNum b2)
         {
-            
+            bigNum ans = new bigNum();
+
+            if (!(b1.neg ^ b2.neg))
+            {
+
+            }
+
+            return ans;
         }
         public static bigNum operator -(bigNum b1, bigNum b2)
         {
-            
+            bigNum ans = new bigNum();
+
+
+
+
+            return ans;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private static bool operator <(bigNum bn1, bigNum bn2)
+        {
+            if (bn1.cnt - bn1.dot < bn2.cnt - bn2.dot)
+            {
+                return true;
+            }
+            if (bn1.cnt - bn1.dot > bn2.cnt - bn2.dot)
+            {
+                return false;
+            }
+            int i, j;
+            for (i = bn1.cnt - 1, j = bn2.cnt - 1; i >= 0 && j >= 0; --i, --j)
+            {
+                if (bn1.num[i] < bn2.num[j])
+                    return true;
+                if (bn1.num[i] > bn2.num[j])
+                    return false;
+            }
+            if (j > 0)
+                return true;
+            if (i > 0)
+                return false;
+            return false;
+        }
+
+        private static bool operator >(bigNum bn1, bigNum bn2)
+        {
+            if (bn1.cnt - bn1.dot > bn2.cnt - bn2.dot)
+            {
+                return true;
+            }
+            if (bn1.cnt - bn1.dot < bn2.cnt - bn2.dot)
+            {
+                return false;
+            }
+            int i, j;
+            for (i = bn1.cnt - 1, j = bn2.cnt - 1; i >= 0 && j >= 0; --i, --j)
+            {
+                if (bn1.num[i] > bn2.num[j])
+                    return true;
+                if (bn1.num[i] < bn2.num[j])
+                    return false;
+            }
+            if (i > 0)
+                return true;
+            if (j > 0)
+                return false;
+            return false;
+        }
+
+        private static bool operator <=(bigNum bn1, bigNum bn2)
+        {
+            if (bn1.cnt - bn1.dot < bn2.cnt - bn2.dot)
+            {
+                return true;
+            }
+            if (bn1.cnt - bn1.dot > bn2.cnt - bn2.dot)
+            {
+                return false;
+            }
+            int i, j;
+            for (i = bn1.cnt - 1, j = bn2.cnt - 1; i >= 0 && j >= 0; --i, --j)
+            {
+                if (bn1.num[i] < bn2.num[j])
+                    return true;
+                if (bn1.num[i] > bn2.num[j])
+                    return false;
+            }
+            if (j > 0)
+                return true;
+            if (i > 0)
+                return false;
+            return true;
+        }
+
+        private static bool operator >=(bigNum bn1, bigNum bn2)
+        {
+            if (bn1.cnt - bn1.dot > bn2.cnt - bn2.dot)
+            {
+                return true;
+            }
+            if (bn1.cnt - bn1.dot < bn2.cnt - bn2.dot)
+            {
+                return false;
+            }
+            int i, j;
+            for (i = bn1.cnt - 1, j = bn2.cnt - 1; i >= 0 && j >= 0; --i, --j)
+            {
+                if (bn1.num[i] > bn2.num[j])
+                    return true;
+                if (bn1.num[i] < bn2.num[j])
+                    return false;
+            }
+            if (i > 0)
+                return true;
+            if (j > 0)
+                return false;
+            return true;
+        }
+
+        private static bool operator ==(bigNum bn1, bigNum bn2)
+        {
+
+            if (bn1.cnt != bn2.cnt)
+                return false;
+            if (bn1.dot != bn2.dot)
+                return false;
+
+            for (int i = bn1.cnt - 1; i >= 0; --i)
+            {
+                if (bn1.num[i] != bn2.num[i])
+                    return false;
+            }
+            return true;
+        }
+
     }
 }
