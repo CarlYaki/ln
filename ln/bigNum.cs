@@ -40,10 +40,19 @@ namespace ln
                 --cnt;
             }
         }
+        public bigNum(bigNum bn)
+        {
+            neg = bn.neg;
+            cnt = bn.cnt;
+            dot = bn.dot;
+            num = new int[1010];
+            for (int i = 0; i < cnt; ++i)
+                num[i] = bn.num[i];
+        }
 
         private static bigNum plus(bigNum b1, bigNum b2)
         {
-            bigNum bn1 = b1, bn2 = b2, ans = new bigNum();
+            bigNum bn1 = new bigNum(b1), bn2 = new bigNum(b2), ans = new bigNum();
 
             if (bn1.dot > bn2.dot)
             {
@@ -98,7 +107,7 @@ namespace ln
 
         private static bigNum minus(bigNum b1, bigNum b2)
         {
-            bigNum bn1 = b1, bn2 = b2, ans = new bigNum();
+            bigNum bn1 = new bigNum(b1), bn2 = new bigNum(b2), ans = new bigNum();
 
             if (bn1.dot > bn2.dot)
             {
@@ -245,16 +254,17 @@ namespace ln
         }
         public static bigNum operator /(bigNum b1, bigNum b2)
         {
-            bigNum ans = new bigNum();
-            int[] num_a = b1.num, num_b = b2.num;
-            int len1 = b1.cnt, len2 = b2.cnt;
+            bigNum ans = new bigNum("0");
+            bigNum bn1 = new bigNum(b1), bn2 = new bigNum(b2);
+            int[] num_a = bn1.num, num_b = bn2.num;
+            int len1 = bn1.cnt, len2 = bn2.cnt;
 
-            for (int i = 0; i < len1; ++i)
+            for (int i = len1-1; i >= 0; --i)
             {
-                num_a[i + maxlen] = num_a[i];
+                num_a[i + maxlen*2 - len1] = num_a[i];
                 num_a[i] = 0;
             }
-            len1 += maxlen;
+            len1 = maxlen*2;
             int nTimes = len1 - len2;
             for (int i = len2 - 1; i >= 0; --i)
             {
@@ -270,9 +280,20 @@ namespace ln
                     len1 = nTemp;
                     ans.num[nTimes - i]++;
                 }
+                /*
+                 * 
+                 * 
+                 * 
+                 * 这里有bug
+                 * 
+                 * 
+                 * 
+                 * 
+                 * 
+                 */
             }
-            ans.dot = b1.dot + maxlen;
-            ans.cnt = nTimes + 1;
+            ans.dot = 2 * maxlen - (bn1.cnt - bn1.dot) - bn2.dot;
+            ans.cnt = len2;
             while (ans.num[ans.cnt-1] == 0 && ans.cnt > ans.dot + 1)
             {
                 ans.cnt--;
@@ -283,11 +304,12 @@ namespace ln
                 for (int i = 0; i < maxlen; ++i)
                 {
                     ans.num[i] = ans.num[i + delta];
+                    ans.num[i + delta] = 0;
                 }
                 ans.dot -= delta;
                 ans.cnt = maxlen;
             }
-            ans.neg = b1.neg ^ b2.neg;
+            ans.neg = bn1.neg ^ bn2.neg;
             return ans;
         }
         private static int SubStract(int[] p1, int[] p2, int len1, int len2,int j)
@@ -320,7 +342,24 @@ namespace ln
             return 0;                  //两数相等的时候返回0
         }
 
+        public void show()
+        {
+            string s = neg ? "-" : "";
+            for (int i = cnt - 1; i >= dot; --i)
+            {
+                s += num[i].ToString();
+            }
 
+            if (dot > 0)
+            {
+                s += ".";
+                for (int i = dot - 1; i >= 0; --i)
+                {
+                    s += num[i].ToString();
+                }
+            }
+            MessageBox.Show(s);
+        }
 
 
 
