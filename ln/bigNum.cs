@@ -243,8 +243,82 @@ namespace ln
             }
             return ans;
         }
+        public static bigNum operator /(bigNum b1, bigNum b2)
+        {
+            bigNum ans = new bigNum();
+            int[] num_a = b1.num, num_b = b2.num;
+            int len1 = b1.cnt, len2 = b2.cnt;
 
-
+            for (int i = 0; i < len1; ++i)
+            {
+                num_a[i + maxlen] = num_a[i];
+                num_a[i] = 0;
+            }
+            len1 += maxlen;
+            int nTimes = len1 - len2;
+            for (int i = len2 - 1; i >= 0; --i)
+            {
+                num_b[i+nTimes] = num_b[i];
+                num_b[i] = 0;
+            }
+            len2 = len1;
+            int nTemp;
+            for (int i = 0; i <= nTimes; ++i)
+            {
+                while ((nTemp = SubStract(num_a, num_b, len1, len2, i)) >= 0)
+                {
+                    len1 = nTemp;
+                    ans.num[nTimes - i]++;
+                }
+            }
+            ans.dot = b1.dot + maxlen;
+            ans.cnt = nTimes + 1;
+            while (ans.num[ans.cnt-1] == 0 && ans.cnt > ans.dot + 1)
+            {
+                ans.cnt--;
+            }
+            if (ans.cnt > maxlen)
+            {
+                int delta = ans.cnt - maxlen;
+                for (int i = 0; i < maxlen; ++i)
+                {
+                    ans.num[i] = ans.num[i + delta];
+                }
+                ans.dot -= delta;
+                ans.cnt = maxlen;
+            }
+            ans.neg = b1.neg ^ b2.neg;
+            return ans;
+        }
+        private static int SubStract(int[] p1, int[] p2, int len1, int len2,int j)
+        {
+            int i;
+            if (len1 < len2-j)
+                return -1;
+            if (len1 == len2-j)
+            {                        //判断p1 > p2
+                for (i = len1 - 1; i >= 0; i--)
+                {
+                    if (p1[i] > p2[i+j])   //若大，则满足条件，可做减法
+                        break;
+                    else if (p1[i] < p2[i+j]) //否则返回-1
+                        return -1;
+                }
+            }
+            for (i = 0; i <= len1 - 1; i++)  //从低位开始做减法
+            {
+                p1[i] -= p2[i+j];
+                if (p1[i] < 0)          //若p1<0，则需要借位
+                {
+                    p1[i] += 10;         //借1当10
+                    p1[i + 1]--;           //高位减1
+                }
+            }
+            for (i = len1 - 1; i >= 0; i--)       //查找结果的最高位
+                if (p1[i]!=0)                  //最高位第一个不为0
+                    return (i + 1);       //得到位数并返回
+            return 0;                  //两数相等的时候返回0
+        }
 
 
 
