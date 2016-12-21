@@ -23,6 +23,21 @@ namespace ln
         public MainWindow()
         {
             InitializeComponent();
+            num1.Text = (-7 / 4).ToString();
+            num2.Text = (-7 % 4).ToString();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            bigNum bn1 = new bigNum(num1.Text), bn2 = new bigNum(num2.Text);
+            bigNum ans = bn1 * bn2;
+            string toshow = ans.neg ? "-" : "";
+            for (int i = ans.cnt - 1; i >= ans.dot; --i)
+                toshow += ans.num[i].ToString();
+            toshow += ".";
+            for (int i = ans.dot - 1; i >= 0; --i)
+                toshow += ans.num[i].ToString();
+            MessageBox.Show(toshow);
         }
     }
 }
