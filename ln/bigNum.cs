@@ -115,7 +115,7 @@ namespace ln
             ans.dot = bn1.dot;
             for (int i = 0; i < ans.cnt; ++i)
             {
-                ans.num[i] = bn1.num[i] + bn2.num[i];
+                ans.num[i] = bn1.num[i] - bn2.num[i];
             }
             for (int i = 0; i < ans.cnt; ++i)
             {
@@ -146,7 +146,16 @@ namespace ln
 
             if (!(b1.neg ^ b2.neg))
             {
-
+                ans = plus(b1, b2);
+            }
+            else
+            {
+                if (b1 >= b2)
+                {
+                }
+                else
+                { 
+                }
             }
 
             return ans;
@@ -175,7 +184,7 @@ namespace ln
 
 
 
-        private static bool operator <(bigNum bn1, bigNum bn2)
+        public static bool operator <(bigNum bn1, bigNum bn2)
         {
             if (bn1.cnt - bn1.dot < bn2.cnt - bn2.dot)
             {
@@ -200,7 +209,7 @@ namespace ln
             return false;
         }
 
-        private static bool operator >(bigNum bn1, bigNum bn2)
+        public static bool operator >(bigNum bn1, bigNum bn2)
         {
             if (bn1.cnt - bn1.dot > bn2.cnt - bn2.dot)
             {
@@ -225,7 +234,7 @@ namespace ln
             return false;
         }
 
-        private static bool operator <=(bigNum bn1, bigNum bn2)
+        public static bool operator <=(bigNum bn1, bigNum bn2)
         {
             if (bn1.cnt - bn1.dot < bn2.cnt - bn2.dot)
             {
@@ -250,7 +259,7 @@ namespace ln
             return true;
         }
 
-        private static bool operator >=(bigNum bn1, bigNum bn2)
+        public static bool operator >=(bigNum bn1, bigNum bn2)
         {
             if (bn1.cnt - bn1.dot > bn2.cnt - bn2.dot)
             {
@@ -275,7 +284,7 @@ namespace ln
             return true;
         }
 
-        private static bool operator ==(bigNum bn1, bigNum bn2)
+        public static bool operator ==(bigNum bn1, bigNum bn2)
         {
 
             if (bn1.cnt != bn2.cnt)
@@ -289,6 +298,22 @@ namespace ln
                     return false;
             }
             return true;
+        }
+
+        public static bool operator !=(bigNum bn1, bigNum bn2)
+        {
+
+            if (bn1.cnt != bn2.cnt)
+                return true;
+            if (bn1.dot != bn2.dot)
+                return true;
+
+            for (int i = bn1.cnt - 1; i >= 0; --i)
+            {
+                if (bn1.num[i] != bn2.num[i])
+                    return true;
+            }
+            return false;
         }
 
     }
