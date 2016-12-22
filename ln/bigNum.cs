@@ -5,8 +5,8 @@ namespace ln
 {
     class bigNum
     {
-        private static int mod = 10;
-        private static int maxlen = 500;
+        public static int mod = 10;
+        public static int maxlen = 500;
         public bool neg;
         public int[] num;//每个存一位
         public int cnt, dot;
@@ -30,15 +30,24 @@ namespace ln
                 dot = nums[1].Length;
                 nums[0] += nums[1];
             }
+            else
+                dot = 0;
             cnt = nums[0].Length;
             for (int i = 0; i < cnt; ++i)
             {
                 num[i] += (nums[0][cnt - 1 - i] - '0');
             }
+            /*
+            while (num[cnt - 1] == 0)
+            {
+                --cnt;
+            }*/
+            
             while (cnt > dot + 1 && num[cnt - 1] == 0)
             {
                 --cnt;
             }
+            
         }
         public bigNum(bigNum bn)
         {
@@ -280,17 +289,8 @@ namespace ln
                     len1 = nTemp;
                     ans.num[nTimes - i]++;
                 }
-                /*
-                 * 
-                 * 
-                 * 
-                 * 这里有bug
-                 * 
-                 * 
-                 * 
-                 * 
-                 * 
-                 */
+                if (len1 == len2 - i && num_a[len1-1]==0)
+                    len1--;
             }
             ans.dot = 2 * maxlen - (bn1.cnt - bn1.dot) - bn2.dot;
             ans.cnt = len2;
@@ -342,7 +342,66 @@ namespace ln
             return 0;                  //两数相等的时候返回0
         }
 
-        public void show()
+        public static bigNum sqrt(int xx)
+        {
+            if (xx > 0)
+            {
+                bool flag = false;
+                bigNum x = new bigNum(xx.ToString());
+                bigNum two = new bigNum(2.ToString());
+                bigNum[] a = new bigNum[2];
+                a[1] = new bigNum("1");
+                bigNum delta;
+                bool loop = true;
+                while (loop)
+                {
+                    loop = false;
+                    if (!flag)
+                    {
+                        a[0] = (a[1] + x / a[1]) / two;
+                    }
+                    else
+                    {
+                        a[1] = (a[0] + x / a[0]) / two;
+                    }
+                    flag = !flag;
+                    delta = a[1] - a[0];
+                    for (int j = delta.cnt - 1; j >= delta.dot; --j)
+                    {
+                        if (delta.num[j] != 0)
+                        {
+                            loop = true;
+                            break;
+                        }
+                    }
+                    if (!loop)
+                    {
+                        for (int j = delta.dot - 1; j >= delta.dot - 500 && j >= 0; --j)
+                        {
+                            if (delta.num[j] != 0)
+                            {
+                                loop = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                return flag ? a[1] : a[0];
+            }
+            return new bigNum("0");
+        }
+
+
+
+
+
+
+
+
+
+
+        
+        public string show()
         {
             string s = neg ? "-" : "";
             for (int i = cnt - 1; i >= dot; --i)
@@ -359,6 +418,26 @@ namespace ln
                 }
             }
             MessageBox.Show(s);
+            return s;
+        }
+        public string show(int acc)
+        {
+            string s = neg ? "-" : "";
+            for (int i = cnt - 1; i >= dot; --i)
+            {
+                s += num[i].ToString();
+            }
+
+            if (dot > 0)
+            {
+                s += ".";
+                for (int i = dot - 1; i >= 0 && i >= dot - acc; --i)
+                {
+                    s += num[i].ToString();
+                }
+            }
+            MessageBox.Show(s);
+            return s;
         }
 
 
