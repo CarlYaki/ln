@@ -55,7 +55,7 @@ namespace ln
         {
             acc = Convert.ToInt32(accuracy.Text);
             bigNum halfTaylorAns = calc.halfTaylor(num.Text, acc);
-            halfTaylor.Text = halfTaylorAns.show(acc);
+            halfTaylor.Text = (calc.round(halfTaylorAns, acc)).show(acc);
 
 
         }

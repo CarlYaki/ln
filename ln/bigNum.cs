@@ -400,7 +400,38 @@ namespace ln
 
 
 
-        
+        public bigNum round(bigNum bn, int acc)
+        {
+            bigNum ans = new bigNum(bn);
+
+            if (ans.dot <= acc)
+            {
+                for (int i = ans.cnt - 1; i >= 0; --i)
+                {
+                    ans.num[i + acc - ans.dot] = ans.num[i];
+                    ans.num[i] = 0;
+                }
+                ans.cnt += acc - ans.dot;
+                ans.dot = acc;
+            }
+            else
+            {
+                if (ans.num[ans.dot - acc - 1] >= 5)
+                    ans.num[ans.dot - acc] += 1;
+                for (int i = ans.dot - acc; i < ans.cnt; ++i)
+                {
+                    if (ans.num[i] >= mod)
+                    {
+                        ans.num[i + 1] += ans.num[i] / mod;
+                        ans.num[i] %= mod;
+                        if (i == ans.cnt - 1)
+                            ans.cnt++;
+                    }
+                    else break;
+                }
+            }
+            return ans;
+        }
         public string show()
         {
             string s = neg ? "-" : "";
