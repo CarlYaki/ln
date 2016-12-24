@@ -169,7 +169,10 @@ namespace ln
                 for (int i = 0; i < maxlen; ++i)
                 {
                     ans.num[i] = ans.num[i + delta];
+                    ans.num[i + delta] = 0;
                 }
+                ans.dot -= delta;
+                ans.cnt = maxlen;
             }
             return ans;
         }
@@ -255,6 +258,7 @@ namespace ln
                 for (int i = 0; i < maxlen; ++i)
                 {
                     ans.num[i] = ans.num[i + delta];
+                    ans.num[i + delta] = 0;
                 }
                 ans.dot -= delta;
                 ans.cnt = maxlen;

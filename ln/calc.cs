@@ -9,10 +9,11 @@ namespace ln
 {
     class calc
     {
-        public static bigNum E, one, two, sqrt2, ln2;
+        public static bigNum E, one, two, four, sqrt2, ln2;
         public static bigNum halfTaylor(string inp, int acc)
         {
             //--------------减半Taylor展开---------------
+            bigNum.maxlen = 500;
             bigNum input = new bigNum(inp);
             bigNum temp = two;
             int r;
@@ -45,7 +46,7 @@ namespace ln
                 flag = false;
                 delta = an / (new bigNum(n.ToString()));
 
-                for (int i = delta.dot - 1; i >= delta.dot - acc - 10 && i >= 0; --i)
+                for (int i = delta.dot - 1; i >= delta.dot - acc - 1 && i >= 0; --i)
                 {
                     if (delta.num[i] != 0)
                     {
@@ -62,12 +63,107 @@ namespace ln
                 an.neg = (n % 2 == 0 ? true : false);
             }
 
-            MessageBox.Show("迭代到" + n.ToString() + "次");
+            MessageBox.Show("taylor迭代到" + n.ToString() + "次");
 
             ans = ans + ln2 * R;
 
             return ans;
         }
+
+
+        public static bigNum romberg(string inp, int acc)
+        {
+            bigNum.maxlen = acc + 5;
+            bigNum input = new bigNum(inp);
+            bigNum[] power4 = new bigNum[50];
+            bigNum[] stack_T = new bigNum[50];
+            int cnt_x = 1;
+
+            bigNum temp = two;
+            int r;
+            for (int i = 1; ; ++i)
+            {
+                if (temp > input)
+                {
+                    r = i - 1;
+                    break;
+                }
+                temp = temp * two;
+            }
+            temp = temp / two;
+            //temp.show();
+            bigNum a = input / temp;
+            //a.show();
+            bigNum R = new bigNum(r.ToString());
+            //R.show();
+
+            bigNum h = (a - one);
+            bigNum half_h = h / two;
+            stack_T[0] = half_h * (one + f(a));
+
+            power4[0] = new bigNum(one);
+
+            bigNum x;
+            bigNum delta;
+            int n;
+            bool returnflag;
+            for (n = 1; ; ++n)
+            {
+                //MessageBox.Show(n.ToString());
+                power4[n] = power4[n - 1] * four;
+                temp = new bigNum("0");
+                x = one + half_h;
+                for (int i = 0; i < cnt_x; ++i)
+                {
+                    temp = temp + f(x);
+                    x = x + h;
+                }
+
+                h = half_h;
+                half_h = h / two;
+
+                cnt_x <<= 1;
+                stack_T[n] = (stack_T[n - 1] / two) + (h * temp);//T0(n)
+                
+                returnflag = true;
+                for (int i = n - 1; i >= 0; --i)
+                {
+                    temp = ((power4[n - i] * stack_T[i + 1]) - stack_T[i]) / (power4[n - i] - one);
+                    if (i == 0)
+                    {
+                        delta = temp - stack_T[0];
+                        for (int j = delta.cnt - 1; j >= delta.dot - acc - 1; --j)
+                        {
+                            if (delta.num[j] > 0)
+                            {
+                                returnflag = false;
+                                break;
+                            }
+                        }
+                        if (returnflag)
+                        {
+                            MessageBox.Show("romberg迭代到" + n.ToString() + "次");
+                            return temp + R * ln2;
+                        }
+                    }
+                    stack_T[i] = temp;
+                }
+            }
+        }
+        private static bigNum f(bigNum inp)
+        {
+            return one / inp;
+        }
+
+
+
+
+
+
+
+
+
+
         public static bigNum round(bigNum input, int acc)
         {
             bigNum ans = new bigNum(input);

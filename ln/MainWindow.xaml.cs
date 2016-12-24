@@ -27,6 +27,7 @@ namespace ln
             calc.E = new bigNum(Math.E.ToString());
             calc.one = new bigNum("1");
             calc.two = new bigNum("2");
+            calc.four = new bigNum("4");
 
             calc.sqrt2 = bigNum.sqrt(2);
             //calc.sqrt2.show();
@@ -57,7 +58,8 @@ namespace ln
             bigNum halfTaylorAns = calc.halfTaylor(num.Text, acc);
             halfTaylor.Text = (calc.round(halfTaylorAns, acc)).show(acc);
 
-
+            bigNum rombergAns = calc.romberg(num.Text, acc);
+            romberg.Text = (calc.round(rombergAns, acc)).show(acc);
         }
     }
 }
