@@ -32,10 +32,10 @@
         </Grid>
         <Grid Name="show" Grid.Row="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -46,12 +46,12 @@
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
             </Border>
-            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox" TextWrapping="Wrap" Text="求取方法"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox1" TextWrapping="Wrap" Text="泰勒展开"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox2" TextWrapping="Wrap" Text="数值积分 龙贝格"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox3" TextWrapping="Wrap" Text="有理逼近"/>
-            <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox4" TextWrapping="Wrap" Text="运行结果"/>
-            <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox5" TextWrapping="Wrap" Text="运行时间"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox" TextWrapping="Wrap" Text="求取方法" FontFamily="microsoftyahei"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox1" TextWrapping="Wrap" Text="泰勒展开" FontFamily="microsoftyahei"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox2" TextWrapping="Wrap" Text="数值积分 龙贝格" FontFamily="microsoftyahei"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox3" TextWrapping="Wrap" Text="有理逼近" FontFamily="microsoftyahei"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox4" TextWrapping="Wrap" Text="运行结果" FontFamily="microsoftyahei"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox5" TextWrapping="Wrap" Text="运行时间" FontFamily="microsoftyahei"/>
             <TextBlock Grid.Row="1" Grid.Column="2" x:Name="halfTaylor" HorizontalAlignment="Center" TextWrapping="Wrap"  Text="" VerticalAlignment="Center" TextAlignment="Left"/>
             <TextBlock Grid.Row="2" Grid.Column="2" x:Name="romberg" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Left"/>
             <TextBlock Grid.Row="3" Grid.Column="2" x:Name="rational" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Left"/>
