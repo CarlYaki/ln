@@ -107,6 +107,7 @@ namespace ln
                 for (int i = 0; i < maxlen; ++i)
                 {
                     ans.num[i] = ans.num[i + delta];
+                    ans.num[i + delta] = 0;
                 }
                 ans.dot -= delta;
                 ans.cnt = maxlen;
@@ -201,6 +202,18 @@ namespace ln
                 }
             }
 
+            if (ans.cnt > maxlen)
+            {
+                int delta = ans.cnt - maxlen;
+                for (int i = 0; i < maxlen; ++i)
+                {
+                    ans.num[i] = ans.num[i + delta];
+                    ans.num[i + delta] = 0;
+                }
+                ans.dot -= delta;
+                ans.cnt = maxlen;
+            }
+
             return ans;
         }
         public static bigNum operator -(bigNum b1, bigNum b2)
@@ -226,6 +239,17 @@ namespace ln
                 }
             }
 
+            if (ans.cnt > maxlen)
+            {
+                int delta = ans.cnt - maxlen;
+                for (int i = 0; i < maxlen; ++i)
+                {
+                    ans.num[i] = ans.num[i + delta];
+                    ans.num[i + delta] = 0;
+                }
+                ans.dot -= delta;
+                ans.cnt = maxlen;
+            }
 
             return ans;
         }
@@ -471,7 +495,7 @@ namespace ln
                     s += num[i].ToString();
                 }
             }
-            MessageBox.Show(s);
+            //MessageBox.Show(s);
             return s;
         }
 

@@ -63,7 +63,7 @@ namespace ln
                 an.neg = (n % 2 == 0 ? true : false);
             }
 
-            MessageBox.Show("taylor迭代到" + n.ToString() + "次");
+            //MessageBox.Show("taylor迭代到" + n.ToString() + "次");
 
             ans = ans + ln2 * R;
 
@@ -142,7 +142,7 @@ namespace ln
                         }
                         if (returnflag)
                         {
-                            MessageBox.Show("romberg迭代到" + n.ToString() + "次");
+                            //MessageBox.Show("romberg迭代到" + n.ToString() + "次");
                             return temp + R * ln2;
                         }
                     }
@@ -155,15 +155,44 @@ namespace ln
             return one / inp;
         }
 
+        public static bigNum rational(string inp, int acc)
+        {
+            bigNum.maxlen = 500;
+            bigNum input = new bigNum(inp);
+            int loop = acc * 2;
+            bigNum countDown = new bigNum(loop.ToString());
+            bigNum countDownPlus = countDown + one;
+            bigNum powerRoot=new bigNum(((loop+1)/2).ToString());
 
+            bigNum temp = two;
+            int r;
+            for (int i = 1; ; ++i)
+            {
+                if (temp > input)
+                {
+                    r = i - 1;
+                    break;
+                }
+                temp = temp * two;
+            }
+            temp = temp / two;
+            //temp.show();
+            bigNum a = input / temp - one;
+            //a.show();
+            bigNum R = new bigNum(r.ToString());
+            //R.show();
 
-
-
-
-
-
-
-
+            temp = new bigNum("0");
+            while (loop-- > 0)
+            {
+                temp = ((powerRoot * powerRoot * a) / (countDownPlus + temp));
+                countDownPlus = countDown;
+                countDown = new bigNum(loop.ToString());
+                powerRoot = new bigNum(((loop + 1) / 2).ToString());
+            }
+            return (a / (one + temp)) + (R * ln2);
+        }
+        
         public static bigNum round(bigNum input, int acc)
         {
             bigNum ans = new bigNum(input);

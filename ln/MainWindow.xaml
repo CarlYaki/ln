@@ -5,12 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ln"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Title="ln(x)" Height="350" Width="525">
     <Grid>
-        <TextBox x:Name="num" HorizontalAlignment="Left" Height="23" Margin="201,85,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="accuracy" HorizontalAlignment="Left" Height="23" Margin="46,114,0,0" TextWrapping="Wrap" Text="20" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="228,127,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <TextBlock x:Name="halfTaylor" HorizontalAlignment="Left" Margin="269,219,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
-        <TextBlock x:Name="romberg" HorizontalAlignment="Left" Margin="269,239,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="head" Grid.Row="0">
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="数值分析第二次大作业" VerticalAlignment="Center" FontFamily="microsoftyahei" FontSize="20"/>
+            <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="376,52,0,0" TextWrapping="Wrap" Text="——余翱 2014011458" VerticalAlignment="Top" FontFamily="microsoftyahei"/>
+        </Grid>
+        <Grid Name="user" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" x:Name="num" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="1" VerticalAlignment="Bottom" Margin="0,0,0,5" TextAlignment="Center" Width="120"/>
+            <TextBox Grid.Column="1" x:Name="accuracy" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="20" VerticalAlignment="Bottom" Margin="0,0,0,5" TextAlignment="Center" Width="120"/>
+            <TextBlock Grid.Column="0" x:Name="textBlock2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="输入x" VerticalAlignment="Top" Margin="0,5,0,0" FontFamily="microsoftyahei" FontSize="14"/>
+            <TextBlock Grid.Column="1" x:Name="textBlock3" HorizontalAlignment="Center" TextWrapping="Wrap" Text="输入精度" VerticalAlignment="Top" Margin="0,5,0,0" FontFamily="microsoftyahei" FontSize="14"/>
+            <Image x:Name="image" Source="Resources/start.png" MouseDown="button_Click" MouseEnter="image_MouseEnter" MouseLeave="image_MouseLeave"  Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        </Grid>
+        <Grid Name="show" Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
+            </Border>
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox" TextWrapping="Wrap" Text="求取方法"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox1" TextWrapping="Wrap" Text="泰勒展开"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox2" TextWrapping="Wrap" Text="数值积分 龙贝格"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox3" TextWrapping="Wrap" Text="有理逼近"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox4" TextWrapping="Wrap" Text="运行结果"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox5" TextWrapping="Wrap" Text="运行时间"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" x:Name="halfTaylor" HorizontalAlignment="Center" TextWrapping="Wrap"  Text="" VerticalAlignment="Center" TextAlignment="Left"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" x:Name="romberg" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Left"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" x:Name="rational" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Left"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" x:Name="halfTaylorTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="2" Grid.Column="3" x:Name="rombergTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="3" Grid.Column="3" x:Name="rationalTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Center"/>
+        </Grid>
+        <Border Grid.Row="2" BorderBrush="Black" BorderThickness="2">
+        </Border>
     </Grid>
 </Window>
