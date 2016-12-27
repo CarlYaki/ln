@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 
 namespace ln
 {
@@ -14,13 +13,13 @@ namespace ln
         /*
          * 大数初始化
          */
-        public bigNum()
+        public bigNum()//初始化
         {
             neg = false;
             cnt = dot = 0;
             num = new int[1010];//上限用到maxlen组（maxlen位有效数字），以防乘法爆
         }
-        public bigNum(string s)
+        public bigNum(string s)//由字符串小数初始化
         {
             if (s[0] == '-')
             {
@@ -48,7 +47,7 @@ namespace ln
             }
             
         }
-        public bigNum(bigNum bn)
+        public bigNum(bigNum bn)//由大数初始化
         {
             neg = bn.neg;
             cnt = bn.cnt;
@@ -94,6 +93,7 @@ namespace ln
             {
                 ans.num[i] = bn1.num[i] + bn2.num[i];
             }
+            //进位
             for (int i = 0; i < ans.cnt; ++i)
             {
                 if (ans.num[i] >= mod)
@@ -153,6 +153,7 @@ namespace ln
             {
                 ans.num[i] = bn1.num[i] - bn2.num[i];
             }
+            //借位
             for (int i = 0; i < ans.cnt; ++i)
             {
                 if (ans.num[i] < 0)
@@ -362,6 +363,9 @@ namespace ln
             ans.neg = bn1.neg ^ bn2.neg;
             return ans;
         }
+        /*
+         * 试商法
+         */
         private static int SubStract(int[] p1, int[] p2, int len1, int len2,int j)
         {
             int i;
@@ -454,7 +458,7 @@ namespace ln
 
 
         /*
-         * 四舍五入取整
+         * 根据要求精度四舍五入
          */
         public bigNum round(bigNum bn, int acc)
         {
@@ -507,6 +511,7 @@ namespace ln
             MessageBox.Show(s);
             return s;
         }
+        //现实要求精度的数，不包含四舍五入
         public string show(int acc)
         {
             string s = neg ? "-" : "";

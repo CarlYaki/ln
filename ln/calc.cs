@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace ln
+﻿namespace ln
 {
     class calc
     {
-        public static bigNum E, one, two, four, sqrt2, ln2;
+        public static bigNum one, two, four, sqrt2, ln2;
         public static int[] times;
         public static bigNum halfTaylor(string inp, int acc)
         {
@@ -34,6 +27,11 @@ namespace ln
             bigNum R = new bigNum(r.ToString());
             //R.show();
 
+            /*
+             * 
+             * 以上部分已将输入x转化为(1+a)*2^r
+             * 
+             */
 
             bigNum ans = new bigNum("0"), an = new bigNum(a);
             bigNum delta;
@@ -51,6 +49,7 @@ namespace ln
                 {
                     if (delta.num[i] != 0)
                     {
+                        //精度达到要求
                         flag = true;
                         break;
                     }
@@ -62,6 +61,7 @@ namespace ln
                 n++;
                 an = an * a;
                 an.neg = (n % 2 == 0 ? true : false);
+                //递推下一项
             } while (flag) ;
 
             times[0] = n;
@@ -76,7 +76,7 @@ namespace ln
         public static bigNum romberg(string inp, int acc)
         {
             //--------------Romberg数值积分---------------
-            bigNum.maxlen = acc + 5;
+            bigNum.maxlen = acc + 10;
             bigNum input = new bigNum(inp);
             bigNum[] power4 = new bigNum[50];
             bigNum[] stack_T = new bigNum[50];
@@ -99,6 +99,12 @@ namespace ln
             //a.show();
             bigNum R = new bigNum(r.ToString());
             //R.show();
+
+            /*
+             * 
+             * 以上部分已将输入x转化为a*2^r
+             * 
+             */
 
             bigNum h = (a - one);
             bigNum half_h = h / two;
@@ -145,6 +151,7 @@ namespace ln
                         }
                         if (returnflag)
                         {
+                            //精度达到要求
                             times[1] = n;
                             //MessageBox.Show("romberg迭代到" + n.ToString() + "次");
                             return temp + R * ln2;
@@ -154,6 +161,7 @@ namespace ln
                 }
             }
         }
+        //求倒数
         private static bigNum f(bigNum inp)
         {
             return one / inp;
@@ -187,10 +195,17 @@ namespace ln
             bigNum R = new bigNum(r.ToString());
             //R.show();
 
+            /*
+             * 
+             * 以上部分已将输入x转化为(1+a)*2^r
+             * 
+             */
+
             times[2] = loop;
             temp = new bigNum("0");
             while (loop-- > 0)
             {
+                //根据有理逼近公式进行迭代
                 temp = ((powerRoot * powerRoot * a) / (countDownPlus + temp));
                 countDownPlus = countDown;
                 countDown = new bigNum(loop.ToString());
@@ -199,6 +214,7 @@ namespace ln
             return (a / (one + temp)) + (R * ln2);
         }
         
+        //根据要求精度四舍五入
         public static bigNum round(bigNum input, int acc)
         {
             bigNum ans = new bigNum(input);
