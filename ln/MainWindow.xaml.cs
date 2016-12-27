@@ -142,7 +142,7 @@ namespace ln
             stopwatch.Stop();
             rationalTime.Text = stopwatch.ElapsedMilliseconds.ToString() + "ms";
             rationalTimes.Text = calc.times[2].ToString();
-            MessageBox.Show("Done!");
+            //MessageBox.Show("Done!");
         }
 
         private void image_MouseEnter(object sender, MouseEventArgs e)
