@@ -10,10 +10,11 @@ namespace ln
     class calc
     {
         public static bigNum E, one, two, four, sqrt2, ln2;
+        public static int[] times;
         public static bigNum halfTaylor(string inp, int acc)
         {
             //--------------减半Taylor展开---------------
-            bigNum.maxlen = 500;
+            bigNum.maxlen = acc + 10;
             bigNum input = new bigNum(inp);
             bigNum temp = two;
             int r;
@@ -40,8 +41,8 @@ namespace ln
 
             bigNum offset = new bigNum("0");
 
-            bool flag = true;
-            while (flag)
+            bool flag;
+            do
             {
                 flag = false;
                 delta = an / (new bigNum(n.ToString()));
@@ -61,8 +62,9 @@ namespace ln
                 n++;
                 an = an * a;
                 an.neg = (n % 2 == 0 ? true : false);
-            }
+            } while (flag) ;
 
+            times[0] = n;
             //MessageBox.Show("taylor迭代到" + n.ToString() + "次");
 
             ans = ans + ln2 * R;
@@ -73,6 +75,7 @@ namespace ln
 
         public static bigNum romberg(string inp, int acc)
         {
+            //--------------Romberg数值积分---------------
             bigNum.maxlen = acc + 5;
             bigNum input = new bigNum(inp);
             bigNum[] power4 = new bigNum[50];
@@ -142,6 +145,7 @@ namespace ln
                         }
                         if (returnflag)
                         {
+                            times[1] = n;
                             //MessageBox.Show("romberg迭代到" + n.ToString() + "次");
                             return temp + R * ln2;
                         }
@@ -157,7 +161,8 @@ namespace ln
 
         public static bigNum rational(string inp, int acc)
         {
-            bigNum.maxlen = 500;
+            //--------------有理逼近---------------
+            bigNum.maxlen = acc+10;
             bigNum input = new bigNum(inp);
             int loop = acc * 2;
             bigNum countDown = new bigNum(loop.ToString());
@@ -182,6 +187,7 @@ namespace ln
             bigNum R = new bigNum(r.ToString());
             //R.show();
 
+            times[2] = loop;
             temp = new bigNum("0");
             while (loop-- > 0)
             {

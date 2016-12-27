@@ -25,7 +25,8 @@ namespace ln
         public MainWindow()
         {
             InitializeComponent();
-            calc.E = new bigNum(Math.E.ToString());
+            calc.times = new int[3];
+            //初始化，存1、2、4、根号2的大数表示
             calc.one = new bigNum("1");
             calc.two = new bigNum("2");
             calc.four = new bigNum("4");
@@ -33,11 +34,13 @@ namespace ln
             calc.sqrt2 = bigNum.sqrt(2);
             //calc.sqrt2.show();
 
-
+            /*
+             * 计算ln2
+             */
             bigNum sqrt2_1 = calc.sqrt2 - calc.one;
             calc.ln2 = new bigNum("0");
             bigNum an=new bigNum(sqrt2_1);
-            for (int i = 1; i <= 100; ++i)
+            for (int i = 1; i <= 300; ++i)
             {
                 calc.ln2 = calc.ln2 + an / (new bigNum(i.ToString()));
                 an = an * sqrt2_1;
@@ -55,6 +58,16 @@ namespace ln
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            if (accuracy.Text == "")
+            {
+                MessageBox.Show("请输入精度");
+                return;
+            }
+            if (num.Text == "")
+            {
+                MessageBox.Show("请输入x");
+                return;
+            }
             Stopwatch stopwatch = new Stopwatch();
             for (int i = 0; i < accuracy.Text.Length; ++i)
             {
@@ -66,7 +79,7 @@ namespace ln
             }
             acc = Convert.ToInt32(accuracy.Text);
 
-            if (acc > 50)
+            if (acc >= 50)
             {
                 MessageBox.Show("精度建议小于50");
                 return;
@@ -105,26 +118,40 @@ namespace ln
                 MessageBox.Show("请输入不小于1的x");
                 return;
             }
+
+
+            /*
+             * Taylor展开段
+             */
             stopwatch.Reset();
             stopwatch.Start();
             bigNum halfTaylorAns = calc.halfTaylor(num.Text, acc);
             halfTaylor.Text = (calc.round(halfTaylorAns, acc)).show(acc);
             stopwatch.Stop();
             halfTaylorTime.Text= stopwatch.ElapsedMilliseconds.ToString()+"ms";
+            halfTaylorTimes.Text = calc.times[0].ToString();
 
+            /*
+             * Romberg数值积分段
+             */
             stopwatch.Reset();
             stopwatch.Start();
             bigNum rombergAns = calc.romberg(num.Text, acc);
             romberg.Text = (calc.round(rombergAns, acc)).show(acc);
             stopwatch.Stop();
             rombergTime.Text = stopwatch.ElapsedMilliseconds.ToString() + "ms";
+            rombergTimes.Text = calc.times[1].ToString();
 
+            /*
+             * 有理逼近段
+             */
             stopwatch.Reset();
             stopwatch.Start();
             bigNum rationalAns = calc.rational(num.Text, acc);
             rational.Text = (calc.round(rationalAns, acc)).show(acc);
             stopwatch.Stop();
             rationalTime.Text = stopwatch.ElapsedMilliseconds.ToString() + "ms";
+            rationalTimes.Text = calc.times[2].ToString();
             MessageBox.Show("Done!");
         }
 

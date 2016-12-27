@@ -10,6 +10,10 @@ namespace ln
         public bool neg;
         public int[] num;//每个存一位
         public int cnt, dot;
+
+        /*
+         * 大数初始化
+         */
         public bigNum()
         {
             neg = false;
@@ -37,11 +41,6 @@ namespace ln
             {
                 num[i] += (nums[0][cnt - 1 - i] - '0');
             }
-            /*
-            while (num[cnt - 1] == 0)
-            {
-                --cnt;
-            }*/
             
             while (cnt > dot + 1 && num[cnt - 1] == 0)
             {
@@ -59,6 +58,10 @@ namespace ln
                 num[i] = bn.num[i];
         }
 
+
+        /*
+         * 大数数字加法
+         */
         private static bigNum plus(bigNum b1, bigNum b2)
         {
             bigNum bn1 = new bigNum(b1), bn2 = new bigNum(b2), ans = new bigNum();
@@ -115,6 +118,9 @@ namespace ln
             return ans;
         }
 
+        /*
+         * 大数数字减法
+         */
         private static bigNum minus(bigNum b1, bigNum b2)
         {
             bigNum bn1 = new bigNum(b1), bn2 = new bigNum(b2), ans = new bigNum();
@@ -179,6 +185,9 @@ namespace ln
         }
 
 
+        /*
+         * 大数带符号加法
+         */
         public static bigNum operator +(bigNum b1, bigNum b2)
         {
             bigNum ans = new bigNum();
@@ -216,6 +225,10 @@ namespace ln
 
             return ans;
         }
+
+        /*
+         * 大数带符号减法
+         */
         public static bigNum operator -(bigNum b1, bigNum b2)
         {
             bigNum ans = new bigNum();
@@ -253,6 +266,10 @@ namespace ln
 
             return ans;
         }
+
+        /*
+         * 大数乘法
+         */
         public static bigNum operator *(bigNum b1, bigNum b2)
         {
             bigNum ans = new bigNum();
@@ -289,6 +306,11 @@ namespace ln
             }
             return ans;
         }
+
+
+        /*
+         * 大数除法
+         */
         public static bigNum operator /(bigNum b1, bigNum b2)
         {
             bigNum ans = new bigNum("0");
@@ -370,13 +392,17 @@ namespace ln
             return 0;                  //两数相等的时候返回0
         }
 
+
+
+        /*
+         * 整数开根号
+         */
         public static bigNum sqrt(int xx)
         {
             if (xx > 0)
             {
                 bool flag = false;
                 bigNum x = new bigNum(xx.ToString());
-                bigNum two = new bigNum(2.ToString());
                 bigNum[] a = new bigNum[2];
                 a[1] = new bigNum("1");
                 bigNum delta;
@@ -386,11 +412,11 @@ namespace ln
                     loop = false;
                     if (!flag)
                     {
-                        a[0] = (a[1] + x / a[1]) / two;
+                        a[0] = (a[1] + x / a[1]) / calc.two;
                     }
                     else
                     {
-                        a[1] = (a[0] + x / a[0]) / two;
+                        a[1] = (a[0] + x / a[0]) / calc.two;
                     }
                     flag = !flag;
                     delta = a[1] - a[0];
@@ -427,7 +453,9 @@ namespace ln
 
 
 
-
+        /*
+         * 四舍五入取整
+         */
         public bigNum round(bigNum bn, int acc)
         {
             bigNum ans = new bigNum(bn);
@@ -507,7 +535,7 @@ namespace ln
 
 
 
-
+        //大数数值比较
         public static bool operator <(bigNum bn1, bigNum bn2)
         {
             if (bn1.cnt - bn1.dot < bn2.cnt - bn2.dot)

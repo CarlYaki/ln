@@ -38,13 +38,14 @@
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="0" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="1">
+            <Border Grid.Row="0" Grid.ColumnSpan="6" BorderBrush="Black" BorderThickness="1">
             </Border>
             <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox" TextWrapping="Wrap" Text="求取方法" FontFamily="microsoftyahei"/>
             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox1" TextWrapping="Wrap" Text="泰勒展开" FontFamily="microsoftyahei"/>
@@ -52,12 +53,16 @@
             <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox3" TextWrapping="Wrap" Text="有理逼近" FontFamily="microsoftyahei"/>
             <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox4" TextWrapping="Wrap" Text="运行结果" FontFamily="microsoftyahei"/>
             <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox5" TextWrapping="Wrap" Text="运行时间" FontFamily="microsoftyahei"/>
+            <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textBox6" TextWrapping="Wrap" Text="迭代次数" FontFamily="microsoftyahei"/>
             <TextBlock Grid.Row="1" Grid.Column="2" x:Name="halfTaylor" HorizontalAlignment="Center" TextWrapping="Wrap"  Text="" VerticalAlignment="Center" TextAlignment="Left"/>
             <TextBlock Grid.Row="2" Grid.Column="2" x:Name="romberg" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Left"/>
             <TextBlock Grid.Row="3" Grid.Column="2" x:Name="rational" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Left"/>
             <TextBlock Grid.Row="1" Grid.Column="3" x:Name="halfTaylorTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Grid.Row="2" Grid.Column="3" x:Name="rombergTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Center"/>
             <TextBlock Grid.Row="3" Grid.Column="3" x:Name="rationalTime" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="1" Grid.Column="4" x:Name="halfTaylorTimes" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="2" Grid.Column="4" x:Name="rombergTimes" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Grid.Row="3" Grid.Column="4" x:Name="rationalTimes" HorizontalAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Center" TextAlignment="Center"/>
         </Grid>
         <Border Grid.Row="2" BorderBrush="Black" BorderThickness="2">
         </Border>
